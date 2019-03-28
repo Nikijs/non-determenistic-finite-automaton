@@ -1,12 +1,11 @@
 #NFA
 
-
-
 def shuntingAlg(infix):
     specials = {'*': 50, '.': 40, '|': 30}
 
     stack = ""
     pofix = ""
+    
     for c in infix:
         if c == '(':
             stack = stack + c
@@ -26,4 +25,33 @@ def shuntingAlg(infix):
              
     return pofix
 
-print(shuntingAlg("(a.b)|(c*.d)"))
+
+class state:
+    label = None
+    edge1 = None
+    edge2 = None
+
+class nfa:
+    initial = None
+    accept = None
+
+    def __init__(self, initial, accept):
+        self.initial = initial
+        self.accept = accept
+
+def compile(pofix):
+    nfastack = []
+
+    for c in pofix:
+        if c == '.':
+
+        elif c == '|'
+
+        elif c == '*'
+
+        else:
+            accept = state()
+            initial = state()
+            initial.label = c
+            initial.edge1 = accept
+            nfastack.append(nfa(initial, accept))
