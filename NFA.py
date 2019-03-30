@@ -25,7 +25,7 @@ def shuntingAlg(infix):
             #regular characters pushed to stack
         else:
             pofix = pofix + c
-            
+
     while stack:
         pofix, stack = pofix + stack[-1], stack[:-1]
              #return postfix regex
@@ -50,7 +50,10 @@ def compile(pofix):
 
     for c in pofix:
         if c == '.':
-                nfa2
+            nfa2 = nfastack.pop()
+            nfa1 = nfastack.pop()
+            nfa1.accept.edge1 = nfa2.initial
+            nfastack.append(nfa1.initial, nfa2.accept)
         elif c == '|'
 
         elif c == '*'
