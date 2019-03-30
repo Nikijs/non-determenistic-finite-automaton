@@ -70,7 +70,18 @@ def compile(pofix):
 
             nfa.append(nfa(initial, accept))
         elif c == '*'
+            nfa1 = nfastack.pop()
 
+            initial = state()
+            accept = state()
+
+            initial.edge1 = nfa1.initial
+            initial.edge2 = accept
+
+            nfa1.accept.edge1 = nfa.initial
+            nfa.accept.edge2 = accept
+
+            nfa.append(nfa(initial, accept))
         else:
             accept = state()
             initial = state()
