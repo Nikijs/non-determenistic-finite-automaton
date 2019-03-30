@@ -40,7 +40,7 @@ class state:
 class nfa:
     initial = None
     accept = None
-
+    #constructor
     def __init__(self, initial, accept):
         self.initial = initial
         self.accept = accept
@@ -55,7 +55,20 @@ def compile(pofix):
             nfa1.accept.edge1 = nfa2.initial
             nfastack.append(nfa1.initial, nfa2.accept)
         elif c == '|'
+            nfa2 = nfastack.pop()
+            nfa1 = nfastack.pop()
 
+            initial = state()
+            
+            initial.edge1 = nfa1.initial
+            initial.edge2 = nfa2.initial
+
+            accept = state()
+
+            nfa.accept.edge1 = accept
+            nfa2.accept.edge1 = accept
+
+            nfa.append(nfa(initial, accept))
         elif c == '*'
 
         else:
