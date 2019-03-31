@@ -53,13 +53,14 @@ def compile(pofix):
             nfa2 = nfastack.pop()
             nfa1 = nfastack.pop()
             nfa1.accept.edge1 = nfa2.initial
+            #push nfa to stack
             newNFA = nfa(nfa1.initial, nfa2.accept)
             nfastack.append(newNFA)
 
         elif c == '|':
             nfa2 = nfastack.pop()
             nfa1 = nfastack.pop()
-
+            #create new initial and accept states
             initial = state()
             
             initial.edge1 = nfa1.initial
@@ -69,7 +70,7 @@ def compile(pofix):
 
             nfa1.accept.edge1 = accept
             nfa2.accept.edge1 = accept
-
+            #push nfa to stack
             newNFA = nfa(initial, accept)
             nfastack.append(newNFA)
 
@@ -82,9 +83,9 @@ def compile(pofix):
             initial.edge1 = nfa1.initial
             initial.edge2 = accept
 
-            nfa1.accept.edge1 = nfa.initial
+            nfa1.accept.edge1 = nfa1.initial
             nfa1.accept.edge2 = accept
-
+            #push nfa to stack
             newNFA = nfa(initial, accept)
             nfastack.append(newNFA)
         else:
@@ -92,6 +93,7 @@ def compile(pofix):
             initial = state()
             initial.label = c
             initial.edge1 = accept
+            #push nfa to stack
             newNFA = nfa(initial, accept)
             nfastack.append(newNFA)
 
@@ -139,8 +141,8 @@ def match(infix, string):
 
     return (nfa.accept in current)
 
-infixes = ["a.b.c*", "a.b(b|d).c*", "(a.(b|d))*","a.b(b.b)*.c"]
-strings = ["", "abc","abbc", "abbc","abad", "abbbc"]
+infixes = ["a.b.c*", "a.(b|d).c*", "(a.(b|d))*","a.b(b.b)*.c"]
+strings = ["", "abc","abbc", "abcc","abad", "abbbc"]
 
 for i in infixes:
     for s in strings:
