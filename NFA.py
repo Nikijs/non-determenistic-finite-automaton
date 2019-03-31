@@ -83,7 +83,7 @@ def compile(pofix):
             initial.edge2 = accept
 
             nfa1.accept.edge1 = nfa.initial
-            nfa.accept.edge2 = accept
+            nfa1.accept.edge2 = accept
 
             newNFA = nfa(initial, accept)
             nfastack.append(newNFA)
@@ -97,3 +97,51 @@ def compile(pofix):
 
 #should only have 1 nfa on the stack
     return nfastack.pop()
+
+def followes(state):
+    #create new state
+    states = set()
+    states.add(state)
+
+    #check if states have e arrows 
+    if state.label is None:
+        if state.edge1 is not None:
+            #if edge1 follow
+            states = states | followes(state.edge1)
+        if state.edge2 is not None:
+            #if edge1 follow    
+            states = states | followes(state.edge2)
+
+
+    return states
+
+def match(infix, string):
+    #convert infix to postfix and compile regular expression
+    postfix = shuntingAlg(infix)
+    nfa = compile(postfix)
+
+    current = set()
+    next = set()
+    
+    current = current | followes(nfa.initial)
+
+    #loop through each char in string 
+    for s in string:
+        #loop through the set of states
+        for c in current:
+            #check if state is s
+            if c.label == s:
+                #add edge1 state to the next set
+                next = next | followes(c.edge1)
+        #set current to next and clear next set
+        current = next
+        next = set()
+
+    return (nfa.accept in current)
+
+infixes = ["a.b.c*", "a.b(b|d).c*", "(a.(b|d))*","a.b(b.b)*.c"]
+strings = ["", "abc","abbc", "abbc","abad", "abbbc"]
+
+for i in infixes:
+    for s in strings:
+        print(match(i, s), i, s)
