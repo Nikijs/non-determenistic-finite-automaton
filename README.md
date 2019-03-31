@@ -2,11 +2,14 @@
 
 @Sources
 https://en.wikipedia.org/wiki/Regular_expression
+<br/>
 https://swtch.com/~rsc/regexp/regexp1.html
+<br/>
 https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+<br/>
 The following youtube video helped me understand NFA
 https://www.youtube.com/watch?v=X8nlQPyHsp4
-
+<br/>
 Huge amount of knowledge acquired on this subject was attained following the professors video tutorials which he posted online
 on our college website.
 (unsure if sourcing these videos is allowed)
