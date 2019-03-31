@@ -53,8 +53,10 @@ def compile(pofix):
             nfa2 = nfastack.pop()
             nfa1 = nfastack.pop()
             nfa1.accept.edge1 = nfa2.initial
-            nfastack.append(nfa1.initial, nfa2.accept)
-        elif c == '|'
+            newNFA = nfa(nfa1.initial, nfa2.accept)
+            nfastack.append(newNFA)
+
+        elif c == '|':
             nfa2 = nfastack.pop()
             nfa1 = nfastack.pop()
 
@@ -65,11 +67,13 @@ def compile(pofix):
 
             accept = state()
 
-            nfa.accept.edge1 = accept
+            nfa1.accept.edge1 = accept
             nfa2.accept.edge1 = accept
 
-            nfa.append(nfa(initial, accept))
-        elif c == '*'
+            newNFA = nfa(initial, accept)
+            nfastack.append(newNFA)
+
+        elif c == '*':
             nfa1 = nfastack.pop()
 
             initial = state()
@@ -81,10 +85,15 @@ def compile(pofix):
             nfa1.accept.edge1 = nfa.initial
             nfa.accept.edge2 = accept
 
-            nfa.append(nfa(initial, accept))
+            newNFA = nfa(initial, accept)
+            nfastack.append(newNFA)
         else:
             accept = state()
             initial = state()
             initial.label = c
             initial.edge1 = accept
-            nfastack.append(nfa(initial, accept))
+            newNFA = nfa(initial, accept)
+            nfastack.append(newNFA)
+
+#should only have 1 nfa on the stack
+    return nfastack.pop()
